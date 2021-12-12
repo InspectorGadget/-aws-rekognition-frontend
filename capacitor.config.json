@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "aws-rekognition-frontend",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
