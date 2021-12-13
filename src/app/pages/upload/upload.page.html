@@ -1,0 +1,166 @@
+<ion-content class="ion-no-padding">
+  <ion-grid class="ion-margin-top">
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <h1 class="title">
+          {{
+            response
+            ? "Here's your result"
+            : "Upload your Image"
+          }}
+        </h1>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!response">
+      <ion-col size="12" class="ion-text-center">
+        <form
+          (ngSubmit)="uploadImage()"
+          #loginForm="ngForm"
+          class="ion-no-padding"
+          style="margin-top: 20px"
+        >
+          <ion-input
+            type="file"
+            accept="image/jpeg, image/png"
+            (change)="changeListener($event)"
+            style="border: 2px solid black"
+            button
+          ></ion-input>
+
+          <ion-button
+            type="submit"
+            class="ion-no-margin"
+            style="margin-top: 20px"
+            [disabled]="!file"
+          >
+            Upload Image
+          </ion-button>
+        </form>
+      </ion-col>
+
+      <ion-col size="12" class="ion-text-center" style="margin-top: 30px">
+        <p>
+          <span style="font-weight: bold">NOTE:</span>
+          All your uploaded files are set to be deleted automatically upon
+          generation of result.
+        </p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="response">
+      <ion-col size="12" class="ion-text-center">
+        <img [src]="base64" alt="" style="width: 300px;">
+      </ion-col>
+
+      <ion-col size="10" offset="1" size-md="6" offset-md="3" size-lg="4" offset-lg="4" class="ion-margin-top">
+        <ion-list>
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Confidence:
+            </span> 
+            <span slot="end">
+              {{ response.Confidence > 90 ? "Super confident" : "Not likely" }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Age (Range):
+            </span> 
+            <span slot="end">
+              {{ response.AgeRange.Low }} - {{ response.AgeRange.High }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Gender:
+            </span> 
+            <span slot="end">
+              {{ response.Gender.Value }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Mood:
+            </span> 
+            <span slot="end">
+              {{ emotions }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Has Beard:
+            </span> 
+            <span slot="end">
+              {{ response.Beard.Value ? "Yes" : "Not likely" }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Wearing Eyeglasses:
+            </span> 
+            <span slot="end">
+              {{ response.Eyeglasses.Value ? "Yes" : "Not likely" }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Wearing Sunglasses:
+            </span> 
+            <span slot="end">
+              {{ response.Sunglasses.Value ? "Yes" : "Not likely" }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Eyes is open:
+            </span> 
+            <span slot="end">
+              {{ response.EyesOpen.Value ? "Yes" : "Not likely" }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Mouth is open:
+            </span> 
+            <span slot="end">
+              {{ response.MouthOpen.Value ? "Yes" : "Not likely" }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Has Mustache:
+            </span> 
+            <span slot="end">
+              {{ response.Mustache.Value ? "Yes" : "Not likely" }}
+            </span>
+          </ion-item>
+
+          <ion-item lines="full">
+            <span style="font-weight: bold;" slot="start">
+              Is Smiling:
+            </span> 
+            <span slot="end">
+              {{ response.Smile.Value ? "Yes" : "Not likely" }}
+            </span>
+          </ion-item>
+        </ion-list>
+        
+        <div class="ion-text-center ion-margin-top ion-margin-bottom">
+          <ion-button color="danger" (click)="this.response = null">
+            Try again
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

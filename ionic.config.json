@@ -1,7 +1,9 @@
 {
   "name": "aws-rekognition-frontend",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    }
   },
   "type": "angular"
 }
